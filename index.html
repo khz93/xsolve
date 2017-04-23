@@ -1,0 +1,46 @@
+<html>
+<head>
+<style type="text/css">
+	.tg  {border-collapse:collapse}
+	.tg td		{font-size:14px;font-family:Arial  ;background-color:#ffffff;color:#000000;padding:10px 5px;border-style:solid;border-width:1px;border-color:#aabcfe;}
+	.tg .tg-head{font-size:13px;font-family:Verdana;background-color:#f56b00;color:#000000; padding:10px;text-align:center;vertical-align:top}
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
+<script>
+$(function a() {
+	var flickerAPI = "sluzba.json";
+	$.getJSON(flickerAPI, function a(data){
+		$.each(data, function a(i, f) {
+				var tblRow = "<tr>" + "<td>" + f.id + "</td>" + 
+									  "<td>" + f.firstName + "</td>" + 
+									  "<td>" + f.lastName + "</td>" + 
+									  "<td>" + f.dateOfBirth + "</td>" + 
+									  "<td>" + f.function + "</td>" + 
+									  "<td>" + f.experience + "</td>" + "</tr>";
+				$(tblRow).appendTo("#userdata tbody");
+			});
+	})
+});
+</script>
+</head>
+
+<body>
+	<table class="tg" id="userdata">
+		<thead>
+			<tr>
+				<th class="tg-head" colspan="6">Sluzba</th>
+			</tr>
+			<tr>
+				<td class="tg-alt">ID</td>
+				<td class="tg-alt">FirstName</td>
+				<td class="tg-alt">LastName</td>
+				<td class="tg-alt">DateOfBirth</td>
+				<td class="tg-alt">Function</td>
+				<td class="tg-alt">Experience</td>
+			</tr>
+		</thead>
+	  <tbody>
+	  </tbody>
+	</table>
+</body>
+</html>
