@@ -5,19 +5,6 @@
 	.tg td		{font-size:14px;font-family:Arial  ;background-color:#e8edff;color:#669;padding:10px 5px;border-style:solid;border-width:1px;border-color:#aabcfe;}
 	.tg .tg-head{font-size:13px;font-family:Verdana;background-color:#f56b00;color:#000000; padding:10px;text-align:center;vertical-align:top}
 </style>
-<script>
-function readTextFile(file, callback) {
-    var rawFile = new XMLHttpRequest();
-    rawFile.overrideMimeType("application/json");
-    rawFile.open("GET", file, true);
-    rawFile.onreadystatechange = function() {
-        if (rawFile.readyState === 4 && rawFile.status == "200") {
-            callback(rawFile.responseText);
-        }
-    }
-    rawFile.send(null);
-}
-</script>
 </head>
 
 <body>
