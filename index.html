@@ -7,9 +7,9 @@
 </style>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
 <script>
-$(function a() {
+$(function () {
 	var flickerAPI = "sluzba.json";
-	$.getJSON(flickerAPI, function a(data){
+	var lista = $.getJSON(flickerAPI, function (data){
 		$.each(data, function a(i, f) {
 				var tblRow = "<tr>" + "<td>" + f.id + "</td>" + 
 									  "<td>" + f.firstName + "</td>" + 
@@ -31,16 +31,63 @@ $(function a() {
 				<th class="tg-head" colspan="6">Sluzba</th>
 			</tr>
 			<tr>
-				<td class="tg-alt">ID</td>
-				<td class="tg-alt">FirstName</td>
-				<td class="tg-alt">LastName</td>
-				<td class="tg-alt">DateOfBirth</td>
-				<td class="tg-alt">Function</td>
-				<td class="tg-alt">Experience</td>
+				<td class="tg-alt" onclick="sortTable(0)">ID</td>
+				<td class="tg-alt" onclick="sortTable(1)">FirstName</td>
+				<td class="tg-alt" onclick="sortTable(2)">LastName</td>
+				<td class="tg-alt" onclick="sortTable(3)">DateOfBirth</td>
+				<td class="tg-alt" onclick="sortTable(4)">Function</td>
+				<td class="tg-alt" onclick="sortTable(5)">Experience</td>
 			</tr>
 		</thead>
 	  <tbody>
 	  </tbody>
 	</table>
 </body>
+<script>
+	function sortTable(n) {
+	  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+	  table = document.getElementById("userdata");
+	  switching = true;  dir = "asc"; 
+	  while (switching) {
+		switching = false;
+		rows = table.getElementsByTagName("tr");
+		for (i = 2; i < (rows.length - 1); i++) {
+		  shouldSwitch = false;
+		  if (n == 3) {
+			var x = rows[i].getElementsByTagName("td")[n].innerHTML.slice(8,10);
+			var y = rows[i + 1].getElementsByTagName("td")[n].innerHTML.slice(8,10);
+		  } else {
+		  var x = rows[i].getElementsByTagName("td")[n].innerHTML;
+		  var y = rows[i + 1].getElementsByTagName("td")[n].innerHTML;
+		  }
+		  if (!isNaN(x)){
+			x = parseInt(x);
+			y = parseInt(y);
+		  }
+		  if (dir == "asc") {
+			if (x > y) {
+		
+			  shouldSwitch= true;
+			  break;
+			}
+		  } else if (dir == "desc") {
+			if (x < y) {
+			  shouldSwitch= true;
+			  break;
+			}
+		  }
+		}
+		if (shouldSwitch) {
+		  rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+		  switching = true;
+		  switchcount ++;      
+		} else {
+		  if (switchcount == 0 && dir == "asc") {
+			dir = "desc";
+			switching = true;
+		  }
+		}
+	  }
+	}
+</script>
 </html>
