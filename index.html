@@ -31,12 +31,12 @@ $(function () {
 				<th class="tg-head" colspan="6">Sluzba</th>
 			</tr>
 			<tr>
-				<td class="tg-alt" onclick="sortTable(0)">ID</td>
-				<td class="tg-alt" onclick="sortTable(1)">FirstName</td>
-				<td class="tg-alt" onclick="sortTable(2)">LastName</td>
-				<td class="tg-alt" onclick="sortTable(3)">DateOfBirth</td>
-				<td class="tg-alt" onclick="sortTable(4)">Function</td>
-				<td class="tg-alt" onclick="sortTable(5)">Experience</td>
+				<td class="tg-alt" onclick="sortTable(0)">ID&#8597;</td>
+				<td class="tg-alt" onclick="sortTable(1)">FirstName&#8597;</td>
+				<td class="tg-alt" onclick="sortTable(2)">LastName&#8597;</td>
+				<td class="tg-alt" onclick="sortTable(3)">DateOfBirth&#8597;</td>
+				<td class="tg-alt" onclick="sortTable(4)">Function&#8597;</td>
+				<td class="tg-alt" onclick="sortTable(5)">Experience&#8597;</td>
 			</tr>
 		</thead>
 	  <tbody>
@@ -53,17 +53,20 @@ $(function () {
 		rows = table.getElementsByTagName("tr");
 		for (i = 2; i < (rows.length - 1); i++) {
 		  shouldSwitch = false;
+		    rows[i].getElementsByTagName("td")[n].innerHTML
 		  if (n == 3) {
-			var x = rows[i].getElementsByTagName("td")[n].innerHTML.slice(8,10);
-			var y = rows[i + 1].getElementsByTagName("td")[n].innerHTML.slice(8,10);
+			var x = rows[i].getElementsByTagName("td")[n].innerHTML.slice(0,10).split(".");
+			x = new Date(parseInt(x[2]),parseInt(x[1])-1,parseInt(x[0]));
+			var y = rows[i + 1].getElementsByTagName("td")[n].innerHTML.slice(0,10).split(".");
+			y = new Date(parseInt(y[2]),parseInt(y[1])-1,parseInt(y[0]))
+		  } else if (n == 0 || n == 5) {
+		  var x = parseInt(rows[i].getElementsByTagName("td")[n].innerHTML);
+		  var y = parseInt(rows[i + 1].getElementsByTagName("td")[n].innerHTML);
 		  } else {
 		  var x = rows[i].getElementsByTagName("td")[n].innerHTML;
 		  var y = rows[i + 1].getElementsByTagName("td")[n].innerHTML;
 		  }
-		  if (!isNaN(x)){
-			x = parseInt(x);
-			y = parseInt(y);
-		  }
+		  
 		  if (dir == "asc") {
 			if (x > y) {
 		
