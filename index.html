@@ -1,27 +1,14 @@
 <html>
 <head>
-<style type="text/css">
-	.tg  {border-collapse:collapse}
-	.tg td		{font-size:14px;font-family:Arial  ;background-color:#ffffff;color:#000000;padding:10px 5px;border-style:solid;border-width:1px;border-color:#aabcfe;}
-	.tg .tg-head{font-size:13px;font-family:Verdana;background-color:#f56b00;color:#000000; padding:10px;text-align:center;vertical-align:top}
-</style>
+<link rel="stylesheet" href="csss.css">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"> </script>
-<script>
-$(function () {
-	var flickerAPI = "sluzba.json";
-	var lista = $.getJSON(flickerAPI, function (data){
-		$.each(data, function a(i, f) {
-				var tblRow = "<tr>" + "<td>" + f.id + "</td>" + 
-									  "<td>" + f.firstName + "</td>" + 
-									  "<td>" + f.lastName + "</td>" + 
-									  "<td>" + f.dateOfBirth + "</td>" + 
-									  "<td>" + f.function + "</td>" + 
-									  "<td>" + f.experience + "</td>" + "</tr>";
-				$(tblRow).appendTo("#userdata tbody");
-			});
-	})
-});
-</script>
+<script type="text/javascript" src="paging.js"></script>
+<script type="text/javascript" src="getjson.js"></script>
+<script type="text/javascript" src="sort.js"></script>
+
+
+
+
 </head>
 
 <body>
@@ -42,55 +29,17 @@ $(function () {
 	  <tbody>
 	  </tbody>
 	</table>
+	<div id="pageNavPosition"></div>
+	<script type="text/javascript">
+		var pager = new Pager('userdata', 5); 
+		pager.init(); 
+		pager.showPageNav('pager', 'pageNavPosition'); 
+		pager.showPage(1);
+	</script>
+
+	
 </body>
-<script>
-	function sortTable(n) {
-	  var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-	  table = document.getElementById("userdata");
-	  switching = true;  dir = "asc"; 
-	  while (switching) {
-		switching = false;
-		rows = table.getElementsByTagName("tr");
-		for (i = 2; i < (rows.length - 1); i++) {
-		  shouldSwitch = false;
-		    rows[i].getElementsByTagName("td")[n].innerHTML
-		  if (n == 3) {
-			var x = rows[i].getElementsByTagName("td")[n].innerHTML.slice(0,10).split(".");
-			x = new Date(parseInt(x[2]),parseInt(x[1])-1,parseInt(x[0]));
-			var y = rows[i + 1].getElementsByTagName("td")[n].innerHTML.slice(0,10).split(".");
-			y = new Date(parseInt(y[2]),parseInt(y[1])-1,parseInt(y[0]))
-		  } else if (n == 0 || n == 5) {
-		  var x = parseInt(rows[i].getElementsByTagName("td")[n].innerHTML);
-		  var y = parseInt(rows[i + 1].getElementsByTagName("td")[n].innerHTML);
-		  } else {
-		  var x = rows[i].getElementsByTagName("td")[n].innerHTML;
-		  var y = rows[i + 1].getElementsByTagName("td")[n].innerHTML;
-		  }
-		  
-		  if (dir == "asc") {
-			if (x > y) {
-		
-			  shouldSwitch= true;
-			  break;
-			}
-		  } else if (dir == "desc") {
-			if (x < y) {
-			  shouldSwitch= true;
-			  break;
-			}
-		  }
-		}
-		if (shouldSwitch) {
-		  rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-		  switching = true;
-		  switchcount ++;      
-		} else {
-		  if (switchcount == 0 && dir == "asc") {
-			dir = "desc";
-			switching = true;
-		  }
-		}
-	  }
-	}
-</script>
+
+
+
 </html>
